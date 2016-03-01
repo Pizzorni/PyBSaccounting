@@ -18,10 +18,10 @@ Specify either a combination of years, months, and days or a user, or use the --
 
 ### TODO
 
-- ~implement user cmd line argument parsing and validation~
-- ~file name generation from cmd line args~
+- ~~implement user cmd line argument parsing and validation~~
+- ~~file name generation from cmd line args~~
 - actually process logs
-  - ~number of unique users~
+  - ~~number of unique users~~
     - per year/month/date
   - number of jobs by user
     - per year/month/date
