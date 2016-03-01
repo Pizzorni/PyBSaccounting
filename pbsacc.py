@@ -24,7 +24,7 @@ def main():
 
 
   year, month, day, user = validate_input(args)
-  print year
+  print normalize_input(year, month, day)
 
 
 def validate_input(args):
@@ -49,6 +49,23 @@ def validate_input(args):
 
   return year_list, month_list, day_list, user_list
 
-#def generate_files(year, month, day):
-
+def normalize_input(year, month, day):
+  year = map(str, year)
+  month_tmp = map(str,month)
+  day_tmp = map(str,day)
+  month = []
+  day = []
+  for m in month_tmp:
+    if len(m) != 2:
+      month.append("0" + m)
+    else:
+      month.append(m)
+  for d in day_tmp:
+    if len(d) !=2:
+      day.append("0" + d)
+    else:
+      day.append(d)
+  return year, month, day
+#def generate_file_names(year, month, day):
+  
 main()
