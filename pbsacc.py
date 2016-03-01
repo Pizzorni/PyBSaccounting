@@ -24,8 +24,8 @@ def main():
 
 
   year, month, day, user = validate_input(args)
-  print normalize_input(year, month, day)
-
+  year, month, day =  normalize_input(year, month, day)
+  print generate_file_names(year,month,day)
 
 def validate_input(args):
   year_list = [x for x in xrange(2010,2017)]
@@ -66,6 +66,9 @@ def normalize_input(year, month, day):
     else:
       day.append(d)
   return year, month, day
-#def generate_file_names(year, month, day):
-  
+
+def generate_file_names(year, month, day):
+  file_names = list((''.join(prod) for prod in 
+              product(year,month,day)))
+  return file_names
 main()
