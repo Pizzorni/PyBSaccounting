@@ -1,5 +1,6 @@
 import argparse
 import re
+import datetime
 from itertools import product
 
 def main():
@@ -21,11 +22,27 @@ def main():
   if not (args.year or args.month or args.day or args.all):
     parser.error('No dates specified')
 
-
-
   year, month, day, user = validate_input(args)
   year, month, day =  normalize_input(year, month, day)
-  print generate_file_names(year,month,day)
+  file_names = generate_file_names(year,month,day)
+  usr_list = []
+  ctime_re = r"user=(\w+)\b"
+  cpattern = re.compile(ctime_re)
+  for file in file_names:
+    try:
+      with open(file) as f:
+        for line in f:
+          match = cpattern.findall(line)
+          if len(match) > 0:
+            usr_list.append(match[0])
+      #    print match
+    except IOError as ignored:
+      print "you suck"
+      pass
+  usr_list = sorted(list(set(usr_list)))
+  print usr_list
+  print "Number of unique users: " + str(len(usr_list))
+      
 
 def validate_input(args):
   year_list = [x for x in xrange(2010,2017)]
