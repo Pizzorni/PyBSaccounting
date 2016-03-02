@@ -37,10 +37,10 @@ def main():
             usr_list.append(match[0])
       #    print match
     except IOError as ignored:
-      print "I'm too lazy to validate dates"
+  #    print "I'm too lazy to validate dates"
       pass
   usr_list = sorted(list(set(usr_list)))
-  print usr_list
+  #print usr_list
   print "Number of unique users: " + str(len(usr_list))
       
 
