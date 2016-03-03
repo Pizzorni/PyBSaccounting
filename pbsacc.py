@@ -17,7 +17,7 @@ def main():
                       action='store_true')
   args = parser.parse_args()
 
-
+  
   # Require at least one
   if not (args.year or args.month or args.day or args.all):
     parser.error('No dates specified')
@@ -25,8 +25,11 @@ def main():
   year, month, day, user = validate_input(args)
   year, month, day =  normalize_input(year, month, day)
   file_names = generate_file_names(year,month,day)
-
-  users = {}
+  
+  if(user):
+    users = {u:0 for u in user}
+  else:
+    users = {}
 
   user_regex = r"user=(\w+)\b"
   user_patt = re.compile(user_regex)
@@ -39,7 +42,7 @@ def main():
           if len(match) > 0:
             if match[0] in users:
               users[match[0]] += 1
-            else:
+            elif len(user) == 0:
               users[match[0]] = 1
     except IOError as ignored:
       pass
