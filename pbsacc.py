@@ -25,23 +25,33 @@ def main():
   year, month, day, user = validate_input(args)
   year, month, day =  normalize_input(year, month, day)
   file_names = generate_file_names(year,month,day)
-  usr_list = []
-  ctime_re = r"user=(\w+)\b"
-  cpattern = re.compile(ctime_re)
+
+  users = {}
+
+  user_regex = r"user=(\w+)\b"
+  user_patt = re.compile(user_regex)
+
   for file in file_names:
     try:
       with open(file) as f:
         for line in f:
-          match = cpattern.findall(line)
+          match = user_patt.findall(line)
           if len(match) > 0:
-            usr_list.append(match[0])
-      #    print match
+            if match[0] in users:
+              users[match[0]] += 1
+            else:
+              users[match[0]] = 1
     except IOError as ignored:
-  #    print "I'm too lazy to validate dates"
       pass
-  usr_list = sorted(list(set(usr_list)))
+
   #print usr_list
-  print "Number of unique users: " + str(len(usr_list))
+  num_jobs = sum(users.values())
+  user_keys = users.keys()
+  user_keys.sort()
+  print "Users,Jobs"
+  for key in user_keys:
+    print key + "," + str(users[key])
+  print "Total number jobs: " + str(num_jobs)
       
 
 def validate_input(args):
